@@ -128,6 +128,7 @@ void	error_message(char *var);
 void	free_ptr(void *ptr);
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
+void	add_to_env_lst(t_token current_node, t_env env_lst, int i);
 // char	*ft_strchr(const char *s, int c);
 
 // **************

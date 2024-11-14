@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:29:05 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/11 21:24:20 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:50:12 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void put_value(t_env *node, char *src, int pos)
 	if (!node -> value)
 		return ;
 	ft_strlcpy(node -> value, src, len, pos, '\n');
-        if (!node -> value)
-            return ;
+    if (!node -> value)
+        return ;
 }
 
 void	print_env(t_env *lst, int flag)

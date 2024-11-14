@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:38:08 by algaboya          #+#    #+#             */
-/*   Updated: 2024/11/11 21:27:49 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:48:36 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_env *init_env_nodes(char **env)
     while (env[i] != NULL) 
 	{
         new_node = ft_lstnew(env[i]);
-        if (!new_node) 
+        if (!new_node)
             return NULL;
         if (list_env == NULL) 
 		{
