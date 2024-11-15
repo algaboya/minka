@@ -123,12 +123,19 @@ void	clean_env_list(t_env **list);
 // builtins
 void	builin(t_token *token_list);
 int		export_valid(t_token *token_list);
-int	export_builtin(t_shell *general);
+int		export_builtin(t_shell *general);
 void	error_message(char *var);
 void	free_ptr(void *ptr);
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
-void	add_to_env_lst(t_token current_node, t_env env_lst, int i);
+void	add_to_env_lst(t_token current_node, t_env **env_lst, int i);
+int		count_lst_len(t_env *env_lst);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	**list_to_array(t_env *env);
+size_t	my_strlcpy(char *dst, const char *src, size_t dstsize);
+void	free_array(char **arr);
+// size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+
 // char	*ft_strchr(const char *s, int c);
 
 // **************

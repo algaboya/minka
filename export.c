@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:35:06 by algaboya          #+#    #+#             */
-/*   Updated: 2024/11/14 21:25:52 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:29:12 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,15 @@ int	export_builtin(t_shell *general)
 		return (FAILURE_EXIT);
 	else if (ft_strchr(general->tok_lst->next->next->context, '=') >= 0)
 	{
+		// int j = 0;
 		i = ft_strchr(general->tok_lst->next->next->context, '=');
-		add_to_env_lst(*general->tok_lst->next->next, *general->env_lst, i);
+		add_to_env_lst(*general->tok_lst->next->next, &general->env_lst, i);
+		// while (general->env_lst)
+		// {
+		// 	printf("new = %s", general->env_lst->key);
+		// 	printf("%s\n", general->env_lst->value);
+		// 	general->env_lst = general->env_lst->next;
+		// }
 	}
 	return (SUCCESS_EXIT);
 }
@@ -55,51 +62,96 @@ int	export_valid(t_token *token_list)
 	return (exit_status);
 }
 
-void	add_to_env_lst(t_token current_node, t_env env_lst, int i)
+void	add_to_env_lst(t_token cur_node, t_env **env_lst, int i)
 {
-	// char	*value;
+	char	*value;
 	char	*key;
-	(void)env_lst;
+	// (void)env_lst;
 	t_env	env_node; 
+	char	**new;
+	// int j = 0;
 
-	key = my_substr(current_node.context, 0, i + 1);
-	// value = my_substr(current_node.context, i + 1, ft_strlen(current_node.context) - i);
-	// env_node = malloc(sizeof(t_env));
+	new = NULL;
+	int u = 0;
+	while (u < 2)
+	{
+	key = my_substr(cur_node.context, 0, i + 1);
+	value = my_substr(cur_node.context, i + 1, ft_strlen(cur_node.context) - i);
 	env_node.key = key;
-	env_node.value = NULL;
+	env_node.value = value;
 	env_node.next = NULL;
+	// printf("key / %s\n", key);
+	// printf("value / %s\n", value);
+	ft_lstadd_back(env_lst, &env_node);
+	// while (env_lst)
+	// {
+	// 	tmp = env_lst;
+	// 	env_lst = env_lst->next;
+	// 	free(tmp->key);
+	// 	free(tmp->value);
+	// 	free(tmp);
+    // }
+	u++;}
+	// new = sort_env(list_to_array(env_lst));
+	// env_lst = init_env_nodes(new);
+	// init_env_nodes(char **env);
 	// quick_sort(char **arr, int low, int high)
 	// env_node.value = value;
-	// printf("key = %s\n", key);
-	// printf("value = %s\n", value);
-	
-	
-}
-char	**list_to_array(struct t_env_export *env)
-{
-	char	**matrix;
-	struct t_env_export *temp;
-	int	i;
-	int	len;
-	char	*tmp;
 
-	len = count_env_len(env);
-	matrix = (char **)malloc(sizeof(char *) * (len + 1));
-	if (!matrix)
+	// while(new[j])
+	// {
+	// 	printf("new = %s\n", new[j]);
+	// 	j++;
+	// }
+	// while (env_lst)
+	// 	{
+	// 		printf("new = %s", env_lst->key);
+	// 		printf("%s\n", env_lst->value);
+	// 		env_lst = env_lst->next;
+	// 	}
+	// return(*init_env_nodes(new));
+}
+
+char	**list_to_array(t_env *env)
+{
+	int		i;
+	int		len;
+	char	*tmp;
+	char	**str;
+	t_env	*env_temp;
+
+	len = count_lst_len(env);
+	str = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!str)
 		return (NULL);
 	i = 0;
-	temp = env;
-	while (temp)
+	env_temp = env;
+	while (env_temp)
 	{
-		tmp = ft_strjoin(temp->key, "=");
-		matrix[i] = ft_strjoin(tmp, temp->value);
+		tmp = ft_strjoin(env_temp->key, "=");
+		str[i] = ft_strjoin(tmp, env_temp->value);
 		free(tmp);
-		// printf("%s\n", matrix[i]);
-		if (!matrix[i])
-			return (free_array(matrix), NULL);
+		// printf("%s\n", str[i]);
+		if (!str[i])
+			return (free_array(str), NULL);
 		i++;
-		temp = temp->next;
+		env_temp = env_temp->next;
 	}
-	matrix[i] = NULL;
-	return (matrix);
+	str[i] = NULL;
+	return (str);
+}
+
+int	count_lst_len(t_env *env_lst)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env_lst;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }
