@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:38:08 by algaboya          #+#    #+#             */
-/*   Updated: 2024/11/15 18:26:57 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/23 18:15:12 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,51 @@
 // ****** WARNING FULL *******
 // ***************************
 
+// static t_env *create_node(const char *key, const char *value) {
+//     t_env *new_node = malloc(sizeof(t_env));
+//     if (!new_node) {
+//         perror("Failed to allocate memory for new node");
+//         exit(EXIT_FAILURE);
+//     }
+
+//     // Allocate memory for key and value strings and copy the strings into the node
+//     new_node->key = strdup(key);   // strdup() allocates memory and copies the string
+//     new_node->value = strdup(value);
+
+//     new_node->next = NULL;  // Initially set next to NULL
+//     return new_node;
+// }
+
+
+// static void add_to_end(t_env **head, const char *key, const char *value) {
+//     t_env *new_node = create_node(key, value);
+    
+//     if (*head == NULL) {
+//         *head = new_node;  // If the list is empty, the new node becomes the head
+//     } else {
+//         t_env *current = *head;
+//         while (current->next) {  // Traverse to the last node
+//             current = current->next;
+//         }
+//         current->next = new_node;  // Add the new node at the end
+//     }
+// }
+
 
 int	init_input(char *input, t_shell *general, char **env)
 {
 	input = "";
+		// general->env_lst = NULL;  // Initially, the list is empty
+
+    	// Add 5 nodes to the list with different key-value pairs
+    	// add_to_end(&general->env_lst, "USER", "john");
+    	// add_to_end(&general->env_lst, "HOME", "/home/john");
+    	// add_to_end(&general->env_lst, "SHELL", "/bin/bash");
+    	// add_to_end(&general->env_lst, "EDITOR", "vim");
+    	// add_to_end(&general->env_lst, "PATH", "/usr/bin:/bin");
+		create_env(env, general);
 	while (input)
 	{
-		create_env(env, general);
 		// input = readline("\033[105;78;15;201m minisHell:\033[0:000m "); // magenta = [38;5;201m | cyan [38;5;51m
 		input = readline("\033[38;5;201m minisHell:\033[0:000m "); // magenta = [38;5;201m | cyan [38;5;51m
 		add_history(input);
@@ -34,9 +72,12 @@ int	init_input(char *input, t_shell *general, char **env)
 		// init_general(general) // give every value to it's corresponding one
 		general -> tok_lst = NULL;
 		init_tokens((const char *)input, general, 0);
+		print_tokens(general->tok_lst);
 		// printf("%d\n", count_lst_len(general->env_lst));
 		if (check_cmd(env, general)) // if 1 error
-			return (free(input), clean_list(&general->tok_lst), 1);
+			{
+				return (free(input), clean_list(&general->tok_lst), 1);}
+		// printf("blabla\n");
 		clean_list(&general->tok_lst);
 		free(input);
 	}
@@ -56,6 +97,7 @@ t_env *init_env_nodes(char **env)
 	tmp = NULL;
     while (env[i] != NULL) 
 	{
+		// printf(":::%s\n", env[i]);
         new_node = ft_lstnew(env[i]);
         if (!new_node)
             return NULL;
@@ -65,7 +107,7 @@ t_env *init_env_nodes(char **env)
             tmp = list_env;
         }
 		else
-            ft_lstadd_back(&tmp, new_node);
+            ft_lstadd_back(tmp, new_node);
         i++;
     }
     return (list_env);
@@ -90,14 +132,15 @@ short	init_tokens(const char *input, t_shell *general, int i)
 			while (i >= 0 && input[i] && input[i] != '|' && input[i] != '>' && input[i] != '<'
 				&& input[i] != ' ' && input[i] != 34 && input[i] != 39)
 				i++;
-			add_token_list(&general->tok_lst, my_substr(input, start, i - start), 0);
+			if (i > start)
+				add_token_list(&general->tok_lst, my_substr(input, start, i - start), 0);
 			i--;
 		}
 		if(i < 0)
 			return (clean_list(&general->tok_lst), -1);
 		i++;
 	}
-	print_tokens(general->tok_lst);
+	// print_tokens(general->tok_lst);
 	// general->tok_lst = optimize_tokens(general->tok_lst);
 	return (0);
 }
@@ -123,9 +166,7 @@ int	init_op_token(const char *input, int i, t_token *token_list)
 	else if (input[i] && input[i] == ' ')
 	{
 		add_token_list(&token_list, my_substr(input, i, 1), 9);
-		while (input[i] == ' ')
-			i++;
-		i -= 1;
+		// while (i
 	}
 	else if (input[i] && input[i] == '>')
 		if (input[i] && input[++i] && input[i] && input[i] == '>')

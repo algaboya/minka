@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:45:48 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/11 17:54:02 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:14:40 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,38 @@ t_env	*ft_lstnew(char *context) // contains blabla = blabla=bla
 	return (node);
 }
 
-void	ft_lstadd_back(t_env **lst, t_env *node)
+t_env	*my_lstnew(char *key, char *value) // contains blabla = blabla=bla
+{
+	t_env	*node;
+
+	node = malloc(sizeof(t_env));
+	if (!node)
+		return (NULL);
+	node->key = key;
+	node->value = value;
+	node -> next = NULL;
+	return (node);
+}
+
+void	ft_lstadd_back(t_env *lst, t_env *node)
 {
 	t_env	*current;
 
-	if (!lst || !node)
+	if (!node)
 		return ;
-	if (!*lst)
+	if (!lst)
 	{
-		*lst = node;
+		lst = node;
 		return ;
 	}
-	current = *lst;
+	current = lst;
 	// printf("mine_env %s%s\n", node->key, node->value);
 	while (current -> next)
 		current = current -> next;
+	// printf("%s\n", current->key);
+	// printf("%s\n", current->value);
+	// printf("%s\n", node->key);
+	// printf("%s\n", node->value);
 	current->next = node;
 }
 
@@ -63,7 +80,7 @@ void	ft_strlcpy(char *dest, const char *src, int size, int pos, char limiter)
 	}
 	// if (limiter)
 	// 	dest[i++] = limiter;
-	if (i <= size)
+	// if (i <= size)
 		dest[i] = '\0';
 }
 

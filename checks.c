@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:41:54 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/11 21:24:45 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:33:31 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,24 @@ int	check_cmd(char **env, t_shell *general)
 			if (j == -1)
 				return (0);
 		}
-		if (ft_strcmp((const char *)tmp->context, (const char *)"env") == 0)
-			return (print_env(general -> env_lst, 0), 0);
+		// print_env(general ->sorted_env_lst, 0)
+		if (ft_strcmp((const char *)tmp->context, "env") == 0)
+			return (export_builtin(general, tmp->context), 0);
 		else if (ft_strcmp((const char *)tmp->context, "export") == 0)
-			{
-				// printf("@@@\n");
-				return (export_builtin(general), 0); //1 error
-			// return (print_env(general->sorted_env_lst, 1), 0);
-			}
-		tmp = tmp->next; 
+			return (export_builtin(general, tmp->context), 0); //1 error
+		else if (ft_strcmp((const char *)tmp->context, "pwd") == 0)
+			return (pwd_builtin(general), 0);
+		else if (ft_strcmp((const char *)tmp->context, "cd") == 0)
+			return (cd_builtin(general), 0);
+		// else if (ft_strcmp((const char *)tmp->context, "echo") == 0)
+		// 	return (echo_builtin(general), 0);
+		tmp = tmp->next;
 	}
-	if (general->env_lst)
-		clean_env_list(&general->env_lst);
+	// if1 (general->env_lst)
+	// {
+	// 	// printf("clen_env\n");
+	// 	clean_env_list(&general->env_lst);
+	// }
 	return (0);
 }
 // check later the error that could ocurr here
@@ -66,7 +72,7 @@ int	new_check_quotes(const char *input, int i, t_shell *general)
 {
 	int start;
 	int flag;
-	
+
 	if (input[i] && input[i] == '\"')
 	{
 		flag = 1;

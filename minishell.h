@@ -15,7 +15,8 @@
 
 # define SUCCESS_EXIT 0
 # define FAILURE_EXIT 1
-
+# define EXPORT 1
+# define ENV 0
 // # include <std.h> // exit(),
 # include <stdio.h> // readline(), perror()
 # include <stdlib.h> // exit(),
@@ -99,7 +100,7 @@ int		create_env(char **env, t_shell *general);
 // ***_____lib utils_____***
 void	ft_strlcpy(char *dest, const char *src, int size, int pos, char limiter);
 t_env	*ft_lstnew(char *context);
-void	 ft_lstadd_back(t_env **lst, t_env *node);
+void	 ft_lstadd_back(t_env *lst, t_env *node);
 int		 ft_strcmp(const char *s1, const char *s2);
 int		ft_strlen(const char *str);
 char	*my_substr(const char *s, unsigned int start, int len);
@@ -121,19 +122,29 @@ void	clean_env_list(t_env **list);
 
 
 // builtins
-void	builin(t_token *token_list);
+// void	builin(t_token *token_list);
 int		export_valid(t_token *token_list);
-int		export_builtin(t_shell *general);
+int		pwd_builtin(t_shell *general);
+int		echo_builtin(t_shell *general);
+int		export_builtin(t_shell *general, char *command);
 void	error_message(char *var);
 void	free_ptr(void *ptr);
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
-void	add_to_env_lst(t_token current_node, t_env **env_lst, int i);
+t_env	**add_env_lst_var(t_token cur_node, t_shell *general, int i);
+t_env	**add_env_no_var(char *context, t_shell *general);
 int		count_lst_len(t_env *env_lst);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**list_to_array(t_env *env);
 size_t	my_strlcpy(char *dst, const char *src, size_t dstsize);
 void	free_array(char **arr);
+t_env	*my_lstnew(char *key, char *value);
+// int	is_same_key(t_env *env_lst, char *key);
+// t_env	**remove_node(t_shell *general, t_env *tmp);
+int		print_export(char *new);
+// void	print_exp_noargs(char *str);
+
+
 // size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 // char	*ft_strchr(const char *s, int c);

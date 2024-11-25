@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:29:05 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/14 20:50:12 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:31:28 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	put_key(t_env *node, char	*src)
     node -> key = (char *)malloc(sizeof(char) * (j + 1));
     if (!node-> key)
         return (-1);
-    ft_strlcpy(node-> key, (const char *)src, (j + 1), 0, '=');
+    ft_strlcpy(node-> key, (const char *)src, j, 0, '=');
+	// printf("key = %s\n", node->key);
     if (!node-> key)
         return (-1);
 	return (j + 1);
@@ -45,26 +46,94 @@ void put_value(t_env *node, char *src, int pos)
 	len = sgmnt_len((const char *)src, pos); // len-y talis e minchev '\n', '\n'-y neraryal
 	if (len == -1)
 		return ;
-	node -> value = (char *)malloc(sizeof(char) * (len)); //check thisss \n-i poxaren dnum enq \0
+	node -> value = (char *)malloc(sizeof(char) * (len + 1)); //check thisss \n-i poxaren dnum enq \0
 	if (!node -> value)
 		return ;
-	ft_strlcpy(node -> value, src, len, pos, '\n');
+	ft_strlcpy(node -> value, src, len, pos, '\n');  // len --> len - 1
+	// printf("value = %s\n", node->value);
     if (!node -> value)
         return ;
 }
 
+int	print_export(char *new)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	// printf("sxtorik\n");
+	printf("declare -x ");
+	while (new[j++] != '=')
+	{
+		j--;
+		printf("%c", new[j]);
+		j++;
+	}
+	if (new[j] == '\0')
+	{
+		printf("\n");
+		return (1);
+	}
+	printf("=\"");
+	j--;
+	while (new[j++] != '\0')
+		printf("%c", new[j]);
+	printf("\"\n");
+	j = 0;
+	return (0);
+}
+
+// void	print_exp_noargs(char *str)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (str[i] != '=' && str[i++] != '\0')
+// 	{
+// 		printf("declare -x %c", str[i]);
+// 		i++;
+// 	}
+// }
+
 void	print_env(t_env *lst, int flag)
 {
-	if (!lst)
-		return ;
-	while (lst)
+	char	**new;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	new = sort_env(list_to_array(lst));
+	while (new[i])
 	{
-		if (flag == 1)
-			printf("declare -x %s=\"%s\"\n", lst -> key, lst -> value);
+		if (flag == EXPORT)
+		{
+			print_export(new[i]);
+			i++;
+		}
 		else
-			printf("%s=%s\n", lst -> key, lst -> value);
-		lst = lst->next;
+		{
+			printf("olala %s\n", new[i]);
+			i++;
+		}
 	}
+	
+	// while (lst != NULL)
+	// {
+	// 	// printf("hoho\n");
+	// 	if (flag == 1)
+	// 	{
+	// 		// if (lst -> value == NULL)
+	// 		// 	printf("declare -x %s=\"\"\n", lst -> key);
+	// 		// else
+	// 			printf("declare -x %s=\"%s\"\n", lst -> key, lst -> value);
+	// 	}
+	// 	else
+	// 		printf("olala %s=%s\n", lst -> key, lst -> value);
+	// 	// i++;
+	// 	lst = lst->next;
+	// }
 }
 
 int	sgmnt_len(const char *str, int pos)
