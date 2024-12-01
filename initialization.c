@@ -53,26 +53,18 @@
 int	init_input(char *input, t_shell *general, char **env)
 {
 	input = "";
-		// general->env_lst = NULL;  // Initially, the list is empty
-
-    	// Add 5 nodes to the list with different key-value pairs
-    	// add_to_end(&general->env_lst, "USER", "john");
-    	// add_to_end(&general->env_lst, "HOME", "/home/john");
-    	// add_to_end(&general->env_lst, "SHELL", "/bin/bash");
-    	// add_to_end(&general->env_lst, "EDITOR", "vim");
-    	// add_to_end(&general->env_lst, "PATH", "/usr/bin:/bin");
-		create_env(env, general);
+	create_env(env, general);
 	while (input)
 	{
 		// input = readline("\033[105;78;15;201m minisHell:\033[0:000m "); // magenta = [38;5;201m | cyan [38;5;51m
-		input = readline("\033[38;5;201m minisHell:\033[0:000m "); // magenta = [38;5;201m | cyan [38;5;51m
+		input = readline("\033[38;5;201mminisHell:\033[0:000m "); // magenta = [38;5;201m | cyan [38;5;51m
 		add_history(input);
 		if (!input)
 			return (1);
 		// init_general(general) // give every value to it's corresponding one
 		general -> tok_lst = NULL;
 		init_tokens((const char *)input, general, 0);
-		print_tokens(general->tok_lst);
+		// print_tokens(general->tok_lst);
 		// printf("%d\n", count_lst_len(general->env_lst));
 		if (check_cmd(env, general)) // if 1 error
 			{

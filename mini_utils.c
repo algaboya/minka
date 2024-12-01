@@ -37,19 +37,23 @@ int	put_key(t_env *node, char	*src)
 	return (j + 1);
 }
 
-//the whole problem, is hereee
 void put_value(t_env *node, char *src, int pos)
 {
 	int	len;
 
 	(void)node;
+	if (ft_strcmp(node->key, "OLDPWD") == 0)
+	{
+		node->value = NULL;
+		return ;
+	}
 	len = sgmnt_len((const char *)src, pos); // len-y talis e minchev '\n', '\n'-y neraryal
 	if (len == -1)
 		return ;
 	node -> value = (char *)malloc(sizeof(char) * (len + 1)); //check thisss \n-i poxaren dnum enq \0
 	if (!node -> value)
 		return ;
-	ft_strlcpy(node -> value, src, len, pos, '\n');  // len --> len - 1
+	ft_strlcpy(node -> value, src, len, pos, '\n');
 	// printf("value = %s\n", node->value);
     if (!node -> value)
         return ;
@@ -72,7 +76,10 @@ int	print_export(char *new)
 	}
 	if (new[j] == '\0')
 	{
-		printf("\n");
+		// if (k == 0)
+			printf("\n");
+		// else
+		// 	printf("=\n");
 		return (1);
 	}
 	printf("=\"");
@@ -96,44 +103,90 @@ int	print_export(char *new)
 // 	}
 // }
 
-void	print_env(t_env *lst, int flag)
+void	swap_node(t_env	*a, t_env *b)
 {
-	char	**new;
-	int		i;
-	int		j;
+	char	*tmp_key;
+	char	*tmp_value;
 
-	i = 0;
-	j = 0;
-	new = sort_env(list_to_array(lst));
-	while (new[i])
+	tmp_key = a->key;
+	tmp_value = a->value;
+	a->key = b->key;
+	a->value = b->value;
+	b->key = tmp_key;
+	b->value = tmp_value;
+}
+
+t_env	*bubble_sort_lst(t_env *lst)
+{
+	int		flag;
+	t_env	*tmp;
+	t_env	*i;
+
+	i = NULL;
+	flag = 1;
+	if (lst == NULL)
+		return (NULL);
+	while (flag == 1)
 	{
-		if (flag == EXPORT)
+		tmp = lst;
+		flag = 0;
+		while (tmp && tmp->next)
 		{
-			print_export(new[i]);
-			i++;
+			i = tmp->next;
+			if (ft_strcmp(tmp->key, i->key) > 0)
+			{
+				swap_node(tmp, i);
+				flag = 1;
+			}
+			tmp = tmp->next;
+		}
+	}
+	return (lst);
+}
+
+void	print_env(t_env *new, int flag)
+{
+	// char	**new;
+	// int		i;
+	// int		j;
+
+	// i = 0;
+	// j = 0;
+	// new = sort_env(list_to_array(lst));
+	// while (new[i])
+	// {
+	// 	if (flag == EXPORT)
+	// 	{
+	// 		print_export(new[i]);
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("olala %s\n", new[i]);
+	// 		// i++;
+	// 	}
+	// 		i++;
+	// }
+	t_env *lst = bubble_sort_lst(new);
+
+	while (lst != NULL)
+	{
+		// printf("hoho\n");
+		if (flag == 1)
+		{
+			if (lst -> value == NULL)
+				printf("declare -x %s\n", lst -> key);
+			else
+				printf("declare -x %s=\"%s\"\n", lst -> key, lst -> value);
 		}
 		else
 		{
-			printf("olala %s\n", new[i]);
-			i++;
+			if (lst -> value == NULL)
+				printf("%s\n", lst -> key);
+			else
+				printf("%s=%s\n", lst -> key, lst -> value);
 		}
+		lst = lst->next;
 	}
-	
-	// while (lst != NULL)
-	// {
-	// 	// printf("hoho\n");
-	// 	if (flag == 1)
-	// 	{
-	// 		// if (lst -> value == NULL)
-	// 		// 	printf("declare -x %s=\"\"\n", lst -> key);
-	// 		// else
-	// 			printf("declare -x %s=\"%s\"\n", lst -> key, lst -> value);
-	// 	}
-	// 	else
-	// 		printf("olala %s=%s\n", lst -> key, lst -> value);
-	// 	// i++;
-	// 	lst = lst->next;
-	// }
 }
 
 int	sgmnt_len(const char *str, int pos)
@@ -167,18 +220,17 @@ void	clean_list(t_token **list)
 // ************************
 // ******* FUR MICH *******
 // ************************
-void print_tokens(t_token *head)
-{
-    t_token *current; 
+// void print_tokens(t_token *head)
+// {
+//     t_token *current; 
 
-	current = head;
-    while (current != NULL)
-	{
-        printf("context: %s\n type: %d\n", current->context, current->type);
-        current = current->next;
-    }
-} 
-
+// 	current = head;
+//     while (current != NULL)
+// 	{
+//         printf("context: %s\n type: %d\n", current->context, current->type);
+//         current = current->next;
+//     }
+// } 
 
 
 // **** ARCHIVE ****

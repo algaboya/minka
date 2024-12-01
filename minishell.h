@@ -86,7 +86,7 @@ int     partition(char **arr, int low, int high);
 void    swap(char **a, char **b);
 
 // ***_____utils_____***
-void    print_env(t_env *lst, int flag);
+void    print_env(t_env *new, int flag);
 void	print_tokens(t_token *head);
 int		put_key(t_env *node, char	*src);
 void	put_value(t_env *node, char *src, int pos);
@@ -126,6 +126,7 @@ void	clean_env_list(t_env **list);
 int		export_valid(t_token *token_list);
 int		pwd_builtin(t_shell *general);
 int		echo_builtin(t_shell *general);
+int		cd_builtin(t_shell *general);
 int		export_builtin(t_shell *general, char *command);
 void	error_message(char *var);
 void	free_ptr(void *ptr);
@@ -142,6 +143,17 @@ t_env	*my_lstnew(char *key, char *value);
 // int	is_same_key(t_env *env_lst, char *key);
 // t_env	**remove_node(t_shell *general, t_env *tmp);
 int		print_export(char *new);
+t_env	*bubble_sort_lst(t_env *lst);
+void	swap_node(t_env	*a, t_env *b);
+int		change_home(t_shell *general);
+char 	*get_value(t_shell *general, char *keyik);
+int		change_env_value(t_env *lst, char *keyik, char *valik);
+int		change_prev_dir(t_shell *general);
+int		change_dir(t_shell *general, char *dir);
+int		unset_builtin(t_shell *general);
+int		unset_exp_var(t_shell *general, char *new);
+int		delete_exp_node(t_env **lst, t_env *nodik);
+void	free_node(t_env *node);
 // void	print_exp_noargs(char *str);
 
 

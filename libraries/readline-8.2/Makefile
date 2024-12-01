@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/algaboya/Desktop/00/libraries/readline-8.2
+BUILD_DIR = /Users/tumolabs/Desktop/aka/libraries/readline-8.2
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/algaboya/Desktop/00/libraries/readline
+prefix = /Users/tumolabs/Desktop/aka/libraries/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

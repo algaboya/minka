@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:41:54 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/24 20:33:31 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:37:50 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ int	check_cmd(char **env, t_shell *general)
 			return (pwd_builtin(general), 0);
 		else if (ft_strcmp((const char *)tmp->context, "cd") == 0)
 			return (cd_builtin(general), 0);
+		else if (ft_strcmp((const char *)tmp->context, "unset") == 0)
+			return (unset_builtin(general), 0);
 		// else if (ft_strcmp((const char *)tmp->context, "echo") == 0)
 		// 	return (echo_builtin(general), 0);
+		// else if (ft_strcmp((const char *)tmp->context, "exit") == 0)
+		// 	return (exit_builtin(general), 0);
 		tmp = tmp->next;
 	}
 	// if1 (general->env_lst)

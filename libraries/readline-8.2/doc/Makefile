@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /Users/algaboya/Desktop/00/libraries/readline
+prefix = /Users/tumolabs/Desktop/aka/libraries/readline
 
 datarootdir = ${prefix}/share
 
@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/algaboya/Desktop/00/libraries/readline-8.2
+BUILD_DIR = /Users/tumolabs/Desktop/aka/libraries/readline-8.2
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

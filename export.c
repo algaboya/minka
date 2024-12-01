@@ -73,12 +73,12 @@ t_env	**add_env_no_var(char *context, t_shell *general)
 	{
 		if (ft_strcmp(tmp->key, context) == 0)
 		{
-			lol = my_lstnew(context, ft_strdup("\0"));
+			lol = my_lstnew(context, NULL);
 			return (NULL);
 		}
 		tmp = tmp->next;
 	}
-	lol = my_lstnew(context, ft_strdup("\0"));
+	lol = my_lstnew(context, NULL);
 	ft_lstadd_back(general->env_lst, lol);
 	return (NULL);
 }
