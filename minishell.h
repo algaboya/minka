@@ -161,6 +161,7 @@ void	free_node(t_env *node);
 int		exit_builtin(t_shell *general);
 int		is_valid(char **args, int count);
 long	ft_atol(char *str);
+int		count_args(char **args);
 // void	print_exp_noargs(char *str);
 
 void lalala(t_shell *general);

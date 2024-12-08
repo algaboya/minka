@@ -6,13 +6,13 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 14:12:07 by algaboya          #+#    #+#             */
-/*   Updated: 2024/12/08 15:58:15 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:32:56 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_args(t_token *start, t_token *end)
+static int	count_mid_args(t_token *start, t_token *end)
 {
 	int	count;
 
@@ -74,7 +74,7 @@ static t_cmd_lst *create_cmd_lst(t_token *token_lst)
 		start = token_lst;
 		while (token_lst && token_lst->type != 1)
 			token_lst = token_lst->next;
-		token_count = count_args(start, token_lst);
+		token_count = count_mid_args(start, token_lst);
 		if (token_count > 0)
 		{
 			new_cmd->args = malloc(sizeof(char *) * (token_count + 1));
@@ -91,7 +91,7 @@ static t_cmd_lst *create_cmd_lst(t_token *token_lst)
 				new_cmd->cmd = strdup(current_token->context);
 				new_cmd->args[0] = strdup(current_token->context);
 			}
-			printf("new_cmd->arg = %s[0]\n", new_cmd->args[0]);
+			// printf("new_cmd->arg = %s[0]\n", new_cmd->args[0]);
 			current_token = start->next;
 			while (i < token_count)
 			{

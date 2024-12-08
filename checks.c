@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:41:54 by etamazya          #+#    #+#             */
-/*   Updated: 2024/12/08 20:26:04 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:48:10 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	check_cmd(char **env, t_shell *general)
 		// else if (ft_strcmp((const char *)tmp->context, "echo") == 0)
 		// 	return (echo_builtin(general), 0);
 		else if (ft_strcmp((const char *)tmp->context, "exit") == 0)
-			// return (exit_builtin(general), 0);
+			return (exit_builtin(general), 0);
 			// return (ft_atol("124"), 0);
-			printf("%ld\n", ft_atol("124"));
+			// printf("%ld\n", ft_atol("124"));
 		tmp = tmp->next;
 	}
 	// if1 (general->env_lst)

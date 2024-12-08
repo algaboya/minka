@@ -26,7 +26,7 @@ SRCS_NAME =	main.c mini_utils.c \
 			export.c builtin_utils.c\
 			lib_utils_2.c pwd.c\
 			echo.c cd.c unset.c cmd_lst.c\
-			exit.c\
+			exit.c exit_utils.c\
 
 OBJS = $(addprefix $(OBJS_DIR), $(OBJS_NAME))
 OBJS_NAME = $(SRCS_NAME:.c=.o)
