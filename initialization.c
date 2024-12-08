@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 19:38:08 by algaboya          #+#    #+#             */
-/*   Updated: 2024/11/23 18:15:12 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:25:23 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	init_input(char *input, t_shell *general, char **env)
 		// init_general(general) // give every value to it's corresponding one
 		general -> tok_lst = NULL;
 		init_tokens((const char *)input, general, 0);
+		lalala(general);
 		// print_tokens(general->tok_lst);
 		// printf("%d\n", count_lst_len(general->env_lst));
 		if (check_cmd(env, general)) // if 1 error
@@ -133,7 +134,6 @@ short	init_tokens(const char *input, t_shell *general, int i)
 		i++;
 	}
 	// print_tokens(general->tok_lst);
-	// general->tok_lst = optimize_tokens(general->tok_lst);
 	return (0);
 }
 

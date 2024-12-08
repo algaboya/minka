@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:41:54 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/28 19:37:50 by tumolabs         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:26:04 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	check_cmd(char **env, t_shell *general)
 			return (unset_builtin(general), 0);
 		// else if (ft_strcmp((const char *)tmp->context, "echo") == 0)
 		// 	return (echo_builtin(general), 0);
-		// else if (ft_strcmp((const char *)tmp->context, "exit") == 0)
-		// 	return (exit_builtin(general), 0);
+		else if (ft_strcmp((const char *)tmp->context, "exit") == 0)
+			// return (exit_builtin(general), 0);
+			// return (ft_atol("124"), 0);
+			printf("%ld\n", ft_atol("124"));
 		tmp = tmp->next;
 	}
 	// if1 (general->env_lst)

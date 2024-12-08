@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:30:40 by algaboya          #+#    #+#             */
-/*   Updated: 2024/11/11 21:29:12 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:01:04 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,6 @@ int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
-
-// char	*ft_strchr(const char *s, int c)
-// {
-// 	char	*p;
-
-// 	p = (char *)s;
-// 	if (c == '\0')
-// 		return (p + ft_strlen(s));
-// 	while (*p)
-// 	{
-// 		if (*p == (unsigned char)c)
-// 			return (p);
-// 		p++;
-// 	}
-// 	return (NULL);
-// }
 
 void	free_ptr(void *ptr)
 {

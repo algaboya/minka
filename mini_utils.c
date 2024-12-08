@@ -6,7 +6,7 @@
 /*   By: algaboya <algaboya@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:29:05 by etamazya          #+#    #+#             */
-/*   Updated: 2024/11/24 20:31:28 by algaboya         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:25:04 by algaboya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,17 +220,17 @@ void	clean_list(t_token **list)
 // ************************
 // ******* FUR MICH *******
 // ************************
-// void print_tokens(t_token *head)
-// {
-//     t_token *current; 
+void print_tokens(t_token *head)
+{
+    t_token *current; 
 
-// 	current = head;
-//     while (current != NULL)
-// 	{
-//         printf("context: %s\n type: %d\n", current->context, current->type);
-//         current = current->next;
-//     }
-// } 
+	current = head;
+    while (current != NULL)
+	{
+        printf("context: %s\n type: %d\n", current->context, current->type);
+        current = current->next;
+    }
+} 
 
 
 // **** ARCHIVE ****

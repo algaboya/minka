@@ -26,6 +26,7 @@
 # include <sys/wait.h> // wait(), waitpid(), wait3(), 
 # include <sys/resource.h> // (struct rusage *rusage), 
 # include <signal.h> //signal(), 
+# include <limits.h>
 
 typedef enum s_ttype
 {
@@ -56,12 +57,14 @@ typedef struct s_env
 	struct s_env	*next;
 }			t_env;
 
-typedef struct s_cmd_token
+typedef struct s_cmd_lst
 {
-	char	*content;
-	t_ttype	*type;
-	int		flag;
-}			    t_cmd_token;
+	char	*cmd;
+	char	**args;
+	// int		stdin;
+	// int		stdout;
+	struct s_cmd_lst	*next;
+}			    t_cmd_lst;
 
 typedef struct s_shell
 {
@@ -69,6 +72,7 @@ typedef struct s_shell
 	t_env		*env_lst;
 	t_env		*sorted_env_lst; //for export, to not change the original env_lst above
 	int			shlvl; // check
+	t_cmd_lst	*cmd_lst;
 	// char		pwd; // check
 	// char		*oldpwd; // check
 }			   t_shell;
@@ -154,7 +158,12 @@ int		unset_builtin(t_shell *general);
 int		unset_exp_var(t_shell *general, char *new);
 int		delete_exp_node(t_env **lst, t_env *nodik);
 void	free_node(t_env *node);
+int		exit_builtin(t_shell *general);
+int		is_valid(char **args, int count);
+long	ft_atol(char *str);
 // void	print_exp_noargs(char *str);
+
+void lalala(t_shell *general);
 
 
 // size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
